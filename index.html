@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawsPlay - Premium Pet Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #2c3e50;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0f5 100%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #ffa94d, #fd7e14);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa94d);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, #ffd89b 0%, #ff9a56 25%, #ff6b9d 75%, #c06c84 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🐾';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            top: -50px;
+            left: -50px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '🐾';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            bottom: -80px;
+            right: -80px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(30px) rotate(10deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #ffd89b, #ff9a56);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3));
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-desc {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .price-rating {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .rating {
+            color: #ffa94d;
+            font-size: 0.9rem;
+        }
+
+        .product-button {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .product-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: white;
+            margin: 3rem 0;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            min-width: 50px;
+        }
+
+        .feature-text h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #2c3e50;
+        }
+
+        .feature-text p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .about-image {
+            font-size: 200px;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            text-align: center;
+            color: white;
+            margin: 3rem 0;
+        }
+
+        .newsletter h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 150px;
+            padding: 0.9rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .newsletter-form button {
+            padding: 0.9rem 2rem;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .newsletter-status {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            min-height: 24px;
+        }
+
+        /* Update Email Section */
+        .update-email {
+            padding: 2rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            margin-top: 2rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .update-email h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .update-email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .update-email-form input {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .update-email-form input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .update-email-form button {
+            padding: 0.8rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .update-email-form button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .update-status {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            min-height: 20px;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .contact-details h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .contact-details p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .form-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            min-height: 24px;
+        }
+
+        .form-status.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .form-status.error {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        footer .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                min-width: 100%;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero::before {
+                font-size: 100px;
+            }
+
+            .hero::after {
+                font-size: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                font-size: 120px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .modal-form {
+            margin-top: 1.5rem;
+        }
+
+        .modal-form input {
+            width: 100%;
+            padding: 0.9rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .modal-form input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
+        }
+
+        .modal-form button {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .modal-status {
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 500;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🐾 PawsPlay</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="cart-icon" onclick="alert('🛒 Cart coming soon!')">🛒</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to PawsPlay</h1>
+            <p>Quality pet products for your furry best friends 🐾</p>
+            <button class="cta-button" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <h2 class="section-title">Our Premium Products</h2>
+        <p class="section-subtitle">Handpicked items for every pet parent</p>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Why Choose PawsPlay?</h2>
+                <p>We believe every pet deserves the best! Our carefully curated collection brings joy and comfort to pets everywhere.</p>
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-text">
+                            <h3>Premium Quality</h3>
+                            <p>All products tested and approved by pet experts</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚚</div>
+                        <div class="feature-text">
+                            <h3>Fast Delivery</h3>
+                            <p>Free shipping on orders over $50</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <div class="feature-text">
+                            <h3>Best Prices</h3>
+                            <p>Guaranteed lowest prices in the market</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">❤️</div>
+                        <div class="feature-text">
+                            <h3>Pet Lovers</h3>
+                            <p>Customer support that truly cares</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">🐕‍🦺</div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <h2>Join Our PawsPlay Family</h2>
+        <p>Get exclusive deals and pet care tips delivered to your inbox!</p>
+        <form class="newsletter-form" onsubmit="handleNewsletterSignup(event)">
+            <input type="text" id="newsletterName" placeholder="Your Name" required>
+            <input type="email" id="newsletterEmail" placeholder="Your Email" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="newsletter-status" id="newsletterStatus"></div>
+
+        <!-- Update Email Section -->
+        <div class="update-email">
+            <h3>Update Your Email</h3>
+            <form class="update-email-form" onsubmit="handleUpdateEmail(event)">
+                <input type="email" id="oldEmail" placeholder="Current Email" required>
+                <input type="email" id="newEmail" placeholder="New Email" required>
+                <button type="submit">Update Email</button>
+            </form>
+            <div class="update-status" id="updateStatus"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h3>Visit Us</h3>
+                        <p>123 Pet Lane, Animal City, AC 12345</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <p>+1 (800) PAWSPLAY<br>(+1 800-729-7529)</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <p>hello@pawsplay.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div class="contact-details">
+                        <h3>Hours</h3>
+                        <p>Mon-Fri: 9AM - 6PM<br>Sat-Sun: 10AM - 4PM</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="handleContactForm(event)">
+                <div class="form-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Your Email</label>
+                    <input type="email" id="contactEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactSubject">Subject</label>
+                    <input type="text" id="contactSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+                <div class="form-status" id="contactStatus"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 PawsPlay - Premium Pet Products</p>
+        <p>Made with <span class="heart">❤️</span> for pet lovers everywhere</p>
+        <p>Follow us on social media for daily pet tips and exclusive offers!</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCartModal()">&times;</span>
+            <h2 style="font-family: 'Fredoka', sans-serif; margin-bottom: 1rem;">Add to Cart</h2>
+            <form class="modal-form" onsubmit="handleAddToCart(event)">
+                <input type="text" id="modalName" placeholder="Your Name" required>
+                <input type="email" id="modalEmail" placeholder="Your Email" required>
+                <button type="submit">Confirm Order</button>
+            </form>
+            <div class="modal-status" id="modalStatus"></div>
+        </div>
+    </div>
+
+    <script>
+        const siteId = new URLSearchParams(window.location.search).get('id') || '';
+        let currentProductName = '';
+
+        // Product data
+        const products = [
+            { name: 'Premium Dog Food', emoji: '🦴', price: '$29.99', desc: 'Nutritious formula for healthy pups', rating: '⭐⭐⭐⭐⭐' },
+            { name: 'Cat Toy Bundle', emoji: '🧶', price: '$19.99', desc: 'Interactive toys for endless fun', rating: '⭐⭐⭐⭐⭐' },
+            { name: 'Pet Bed Deluxe', emoji: '🛏️', price: '$49.99', desc: 'Cozy and comfortable sleeping space', rating: '⭐⭐⭐⭐' },
+            { name: 'Grooming Kit', emoji: '✂️', price: '$34.99', desc: 'Complete grooming tools set', rating: '⭐⭐⭐⭐⭐' },
+            { name: 'Water Fountain', emoji: '💧', price: '$39.99', desc: 'Automatic pet hydration system', rating: '⭐⭐⭐⭐' },
+            { name: 'Treats Variety Pack', emoji: '🍖', price: '$24.99', desc: 'Delicious and healthy treats', rating: '⭐⭐⭐⭐⭐' },
+            { name: 'Leash & Collar Set', emoji: '🎀', price: '$22.99', desc: 'Durable and stylish accessories', rating: '⭐⭐⭐⭐' },
+            { name: 'Interactive Puzzle Toy', emoji: '🧩', price: '$27.99', desc: 'Mental stimulation for smart pets', rating: '⭐⭐⭐⭐⭐' }
+        ];
+
+        // Initialize products
+        function initProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map((product, index) => `
+                <div class="product-card">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="price-rating">
+                            <span class="price">${product.price}</span>
+                            <span class="rating">${product.rating}</span>
+                        </div>
+                        <button class="product-button" onclick="openCartModal('${product.name}')">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Modal Functions
+        function openCartModal(productName) {
+            currentProductName = productName;
+            document.getElementById('cartModal').style.display = 'block';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+            document.getElementById('modalStatus').textContent = '';
+        }
+
+        // N8n webhook functions
+        async function registerUser(email, name) {
+            try {
+                const res = await fetch('https://techtravelthink.app.n8n.cloud/webhook/user-register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'register', email, name, websiteId: siteId, source: window.location.href })
+                });
+                const data = await res.json();
+                return data.success ? 'Registered successfully!' : (data.message || 'Registration failed');
+            } catch(e) { return 'Network error. Please try again.'; }
+        }
+
+        async function updateUserEmail(oldEmail, newEmail) {
+            try {
+                const res = await fetch('https://techtravelthink.app.n8n.cloud/webhook/user-register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'update', oldEmail, newEmail, websiteId: siteId })
+                });
+                const data = await res.json();
+                return data.success ? 'Email updated successfully!' : (data.message || 'Update failed');
+            } catch(e) { return 'Network error. Please try again.'; }
+        }
+
+        // Newsletter signup
+        async function handleNewsletterSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('newsletterName').value;
+            const email = document.getElementById('newsletterEmail').value;
+            const status = document.getElementById('newsletterStatus');
+
+            status.textContent = 'Signing up...';
+            const result = await registerUser(email, name);
+            status.textContent = result;
+            status.style.color = result.includes('successfully') ? '#4caf50' : '#f44336';
+
+            if (result.includes('successfully')) {
+                document.getElementById('newsletterName').value = '';
+                document.getElementById('newsletterEmail').value = '';
+            }
+        }
+
+        // Update email
+        async function handleUpdateEmail(e) {
+            e.preventDefault();
+            const oldEmail = document.getElementById('oldEmail').value;
+            const newEmail = document.getElementById('newEmail').value;
+            const status = document.getElementById('updateStatus');
+
+            status.textContent = 'Updating...';
+            const result = await updateUserEmail(oldEmail, newEmail);
+            status.textContent = result;
+            status.style.color = result.includes('successfully') ? '#4caf50' : '#f44336';
+
+            if (result.includes('successfully')) {
+                document.getElementById('oldEmail').value = '';
+                document.getElementById('newEmail').value = '';
+            }
+        }
+
+        // Add to cart (with user registration)
+        async function handleAddToCart(e) {
+            e.preventDefault();
+            const name = document.getElementById('modalName').value;
+            const email = document.getElementById('modalEmail').value;
+            const status = document.getElementById('modalStatus');
+
+            status.textContent = 'Processing...';
+            const result = await registerUser(email, name);
+
+            if (result.includes('successfully')) {
+                status.innerHTML = `✅ ${currentProductName} added to cart!<br>Order confirmation sent to ${email}`;
+                status.style.color = '#4caf50';
+                document.getElementById('modalName').value = '';
+                document.getElementById('modalEmail').value = '';
+                setTimeout(() => closeCartModal(), 2000);
+            } else {
+                status.textContent = result;
+                status.style.color = '#f44336';
+            }
+        }
+
+        // Contact form
+        async function handleContactForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            const status = document.getElementById('contactStatus');
+
+            status.textContent = 'Sending message...';
+            const result = await registerUser(email, name);
+
+            if (result.includes('successfully')) {
+                status.textContent = '✅ Message sent successfully! We\'ll be in touch soon.';
+                status.classList.add('success');
+                status.classList.remove('error');
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactSubject').value = '';
+                document.getElementById('contactMessage').value = '';
+            } else {
+                status.textContent = '❌ ' + result;
+                status.classList.add('error');
+                status.classList.remove('success');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target === modal) {
+                closeCartModal();
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            initProducts();
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
